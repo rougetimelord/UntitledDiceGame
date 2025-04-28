@@ -24,6 +24,7 @@ function Die:roll()
         self.oldX = self.x
         self.oldY = self.y
         self.shake = 0.5
+        FailSound:play()
         return
     end
     Score.rolls = Score.rolls - 1

@@ -23,6 +23,7 @@ function love.load()
     RoundIntroWait = 0
 
     RollSound = love.audio.newSource("assets/roll.mp3", "static")
+    FailSound = love.audio.newSource("assets/fail.mp3", "static")
 
     PauseMenu = PauseMenu(Fonts.IAS36)
     Background = require("background")

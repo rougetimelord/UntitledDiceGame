@@ -5,3 +5,4 @@ ias.ttf -> Font Pro: 2 Types of Distinction (http://discmaster.textfiles.com/vie
 bg.png -> 1,078 Weird Textures (https://discmaster.textfiles.com/view/109/1078%20Weird%20Textures%20(1996)(Ground%20Zero%20Software)[Amiga-Mac-PC].iso/pc/picts/1-49/039.pic)
 y29i.ttf -> Fantasia Fonts (https://discmaster.textfiles.com/view/12165/Fonts_2000_Truetype_and_2000_Type_I_Fonts_Fantasia_1994.iso/wacky/truetype/y29i.ttf)
 roll.mp3 -> Kaboom! (https://discmaster.textfiles.com/view/915/KABOOM!%20-%20Wild%20and%20Wacky%20Sound%20Software.iso/mac/1,000%20Sounds%20(16-bit)/Casino/Roll%20Dice%20on%20Backgammon%20Board)
+fail.mp3 -> Classic Fond 46 (https://discmaster.textfiles.com/view/4357/ClassicFond46.iso/games/sentr.rar/Waves/fail.wav)

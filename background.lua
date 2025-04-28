@@ -1,4 +1,5 @@
 local background = Object:extend()
+
 function background:new(filename)
     self.image = love.graphics.newImage(filename)
     self.image:setWrap("repeat", "repeat")

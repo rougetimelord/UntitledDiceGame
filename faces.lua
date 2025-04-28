@@ -1,11 +1,11 @@
 local faces = {
-    one = {name="1", image = love.graphics.newImage("assets/img/1.png"), scoring = function (score) return score + 1 end, description = "One"},
-    two = {name="2", image = love.graphics.newImage("assets/img/2.png"), scoring = function (score) return score + 2 end, description = "Two"},
-    three = {name="3", image = love.graphics.newImage("assets/img/3.png"), scoring = function (score) return score + 3 end, description = "Three"},
-    four = {name="4", image = love.graphics.newImage("assets/img/4.png"), scoring = function (score) return score + 4 end, description = "Four"},
-    five = {name="5", image = love.graphics.newImage("assets/img/5.png"), scoring = function (score) return score + 5 end, description = "Five"},
-    six = {name="6", image = love.graphics.newImage("assets/img/6.png"), scoring = function (score) return score + 6 end, description = "Six"},
-    clown = {name="Clown", image = love.graphics.newImage("assets/img/clown.png"), scoring = function (score) return score end, description = "Becomes the most common face and grants a small bonus"},
+    one = {name = "1", image = love.graphics.newImage("assets/img/1.png"), scoring = function (score) return score + 1 end, description = "One", cost = 1},
+    two = {name = "2", image = love.graphics.newImage("assets/img/2.png"), scoring = function (score) return score + 2 end, description = "Two", cost = 1},
+    three = {name = "3", image = love.graphics.newImage("assets/img/3.png"), scoring = function (score) return score + 3 end, description = "Three", cost = 1},
+    four = {name = "4", image = love.graphics.newImage("assets/img/4.png"), scoring = function (score) return score + 4 end, description = "Four", cost = 1},
+    five = {name = "5", image = love.graphics.newImage("assets/img/5.png"), scoring = function (score) return score + 5 end, description = "Five", cost = 1},
+    six = {name = "6", image = love.graphics.newImage("assets/img/6.png"), scoring = function (score) return score + 6 end, description = "Six", cost = 1},
+    clown = {name = "Clown", image = love.graphics.newImage("assets/img/clown.png"), scoring = function (score) return score end, description = "Becomes the most common face and grants a small bonus", cost = 3},
 }
 
 return faces

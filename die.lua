@@ -1,7 +1,7 @@
 local faceVals = require("faces")
 local Object = require("classic")
 
-Die = Object.extend(Object)
+Die = Object:extend()
 
 function Die:new(faces, x, y, width, height)
     self.faces = faces or {faceVals.one, faceVals.two, faceVals.three, faceVals.four, faceVals.five, faceVals.six}

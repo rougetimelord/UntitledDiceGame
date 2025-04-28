@@ -24,6 +24,8 @@ function love.load()
     Round = nil
     RoundIntro = false
     RoundIntroWait = 0
+    GameOver = false
+    GameOverWait = 0
 
     RollSound = love.audio.newSource("assets/roll.mp3", "static")
     FailSound = love.audio.newSource("assets/fail.mp3", "static")
@@ -57,8 +59,8 @@ function PlayHand()
         NewRound()
     elseif Score.tries <= 0 then
         -- Game over
-        Score.money = 0
-        NewGame()
+        
+        GameOver = true
     end
 
     for index, value in ipairs(Dice) do
@@ -87,7 +89,7 @@ LastMenu = love.timer.getTime()
 function love.update(dt)
     if RoundIntro then
         RoundIntroWait = RoundIntroWait + dt
-        if RoundIntroWait >= 2 then
+        if RoundIntroWait >= 1.5 then
             RoundIntro = false
             RoundIntroWait = 0
         end
@@ -101,20 +103,8 @@ function love.update(dt)
         if not Started then
             NewGame()
         end
-        local found = false
-        PlayButton:update(dt)
         for index, value in ipairs(Dice) do
             value:update(dt)
-            if not found and love.mouse.isDown(1) then
-                local x, y = love.mouse.getPosition()
-                if value:clicked(x, y) then
-                    if Score.rolls > 0 then
-                        Score.rolls = Score.rolls - 1
-                    end
-                    value:roll()
-                    found = true
-                end
-            end
         end
     end
     PauseMenu:update()
@@ -132,8 +122,8 @@ local function drawRoundIntro()
     love.graphics.setColor(0, 0, 0, 0.5)
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
     love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.setFont(Fonts.Y29I64)
-    love.graphics.print("Round " .. Round, love.graphics.getWidth() / 2 - Fonts.Y29I64:getWidth("Round " .. Round) / 2, love.graphics.getHeight() / 2 - Fonts.Y29I64:getHeight() / 2)
+    love.graphics.setFont(Fonts.IAS64)
+    love.graphics.print("Round " .. Round, love.graphics.getWidth() / 2 - Fonts.IAS64:getWidth("Round " .. Round) / 2, love.graphics.getHeight() / 2 - Fonts.IAS64:getHeight() / 2)
 end
 
 local function drawScore()
@@ -145,17 +135,60 @@ local function drawScore()
     love.graphics.print("Plays: " .. Score.tries, 10, 100)
 end
 
+local function drawHandPreview()
+    local hand = Hands.IdentifyHand()
+    local handText = hand.name .. ": " .. hand.score .. " x " .. hand.mult
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setFont(Fonts.IAS24)
+    love.graphics.print(handText, love.graphics.getWidth() / 2 - Fonts.IAS24:getWidth(handText) / 2, love.graphics.getHeight() * 0.75 - 50)
+end
+
 function love.draw()
-    drawMainScreen()
-    drawScore()
-    if RoundIntro then
-        drawRoundIntro()
+    if GameOver then
+        love.graphics.setColor(0, 0, 0, 0.5)
+        love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.setFont(Fonts.IAS64)
+        love.graphics.print("Game Over", love.graphics.getWidth() / 2 - Fonts.IAS64:getWidth("Game Over") / 2, love.graphics.getHeight() / 2 - Fonts.IAS64:getHeight() / 2)
+        love.graphics.print("Click to restart", love.graphics.getWidth() / 2 - Fonts.IAS64:getWidth("Click to restart") / 2, love.graphics.getHeight() / 2 + Fonts.IAS64:getHeight() / 2)
+    else
+        drawMainScreen()
+        drawHandPreview()
+        drawScore()
+        if RoundIntro then
+            drawRoundIntro()
+        end
     end
     PauseMenu:draw()
 end
 
 function love.mousemoved(x, y, dx, dy, istouch)
     MenuEngine.mousemoved(x, y)
+end
+
+function love.mousereleased(x, y, button, istouch)
+    if button == 1 then
+        if GameOver then
+            NewGame()
+            GameOver = false
+        else
+            if RoundIntro then
+                RoundIntro = false
+                RoundIntroWait = 0
+            end
+            if PlayButton:check(x, y) then
+                return
+            end
+            for index, value in ipairs(Dice) do
+                if value:clicked(x, y) then
+                    value:roll()
+                    if Score.rolls > 0 then
+                        Score.rolls = Score.rolls - 1
+                    end
+                end
+            end
+        end
+    end
 end
 
 local love_errorhandler = love.errorhandler

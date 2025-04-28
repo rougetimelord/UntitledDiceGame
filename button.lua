@@ -1,4 +1,4 @@
-local Object = require "classic"
+local Object = require("classic")
 
 Button = Object:extend(Object)
 
@@ -28,15 +28,14 @@ function Button:clicked(mx, my)
     return mx >= self.x and mx <= self.x + self.width and my >= self.y and my <= self.y + self.height
 end
 
-function Button:update(dt)
-    if love.mouse.isDown(1) then
-        local mx, my = love.mouse.getPosition()
-        if self:clicked(mx, my) then
-            self.bgColor = self.bgColorActive
-            self.callback()
-        end
+function Button:check(x, y)
+    if self:clicked(x, y) then
+        self.bgColor = self.bgColorActive
+        self.callback()
+        return true
     else
         self.bgColor = self.bgInactiveColor
+        return false
     end
 end
 

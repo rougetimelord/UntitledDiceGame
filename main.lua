@@ -43,6 +43,13 @@ end
 
 LastMenu = love.timer.getTime()
 function love.update(dt)
+    if RoundIntro then
+        RoundIntroWait = RoundIntroWait + dt
+        if RoundIntroWait >= 2 then
+            RoundIntro = false
+            RoundIntroWait = 0
+        end
+    end
     MainBg:update(dt)
     if love.keyboard.isDown("escape") and math.abs(LastMenu - love.timer.getTime()) > 0.5 then
         LastMenu = love.timer.getTime()
@@ -66,23 +73,26 @@ function love.update(dt)
     PauseMenu:update()
 end
 
+local function drawMainScreen()
+    MainBg:draw()
+    for index, value in ipairs(Dice) do
+        value:draw()
+    end    
+end
+
+local function drawRoundIntro()
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setFont(Fonts.Y29I64)
+    love.graphics.print("Round " .. Round, love.graphics.getWidth() / 2 - Fonts.Y29I64:getWidth("Round " .. Round) / 2, love.graphics.getHeight() / 2 - Fonts.Y29I64:getHeight() / 2)
+end
+
 function love.draw()
     if RoundIntro then
-        RoundIntroWait = RoundIntroWait + love.timer.getDelta()
-        if RoundIntroWait >= 2 then
-            RoundIntro = false
-            RoundIntroWait = 0
-        end
-        love.graphics.setColor(0, 0, 0, 1)
-        love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-        love.graphics.setColor(1, 1, 1, 1)
-        love.graphics.setFont(Fonts.Y29I64)
-        love.graphics.print("Round " .. Round, love.graphics.getWidth() / 2 - Fonts.Y29I64:getWidth("Round " .. Round) / 2, love.graphics.getHeight() / 2 - Fonts.Y29I64:getHeight() / 2)
+        drawRoundIntro()
     else
-        MainBg:draw()
-        for index, value in ipairs(Dice) do
-            value:draw()
-        end
+        drawMainScreen()
     end
     PauseMenu:draw()
 end

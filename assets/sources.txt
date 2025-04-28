@@ -1,6 +1,7 @@
-clown.png -> GIF-GALAXY 1 (https://discmaster.textfiles.com/view/797/gif-galaxy1.iso/pic/gifprog/neopaint.zip/NEOPAINT/STAMPS/CLOWN.ST)
-eye-L.png -> " (https://discmaster.textfiles.com/view/797/gif-galaxy1.iso/pic/gifprog/neopaint.zip/NEOPAINT/STAMPS/EYE1-L.ST)
+clown.png -> GIF-GALAXY 1 (https://discmaster.textfiles.com/view/797/gif-galaxy1.iso/pic/gifprog/neopaint.zip/NEOPAINT/STAMPS/CLOWN.ST) ~modified to be transparent, resized~
+eye-L.png -> " (https://discmaster.textfiles.com/view/797/gif-galaxy1.iso/pic/gifprog/neopaint.zip/NEOPAINT/STAMPS/EYE1-L.ST) ~modified to be transparent, resized~
 ias.ttf -> Font Pro: 2 Types of Distinction (http://discmaster.textfiles.com/view/670/Font%20Pro%20Volume%202%20-%20Types%20of%20Distinction%20-%20Wayzata%20Technology%20(1992).iso/pc/original/pc/byfamtt/iansegoe/ias_____.ttf)
-1...6.png -> EPS Pro 1: Design Elements (https://discmaster.textfiles.com/browse/532/epsPRO%201%20-%20Design%20Elements%20(Wayzata%20Technology)%20(1993).iso/mac/MAC/HyperCard%202.1/HyperCard/HyperCard.rsrc)
+1...6.png -> EPS Pro 1: Design Elements (https://discmaster.textfiles.com/browse/532/epsPRO%201%20-%20Design%20Elements%20(Wayzata%20Technology)%20(1993).iso/mac/MAC/HyperCard%202.1/HyperCard/HyperCard.rsrc) ~modified to be transparent, resized and repositioned~
 bg.png -> 1,078 Weird Textures (https://discmaster.textfiles.com/view/109/1078%20Weird%20Textures%20(1996)(Ground%20Zero%20Software)[Amiga-Mac-PC].iso/pc/picts/1-49/039.pic)
 y29i.ttf -> Fantasia Fonts (https://discmaster.textfiles.com/view/12165/Fonts_2000_Truetype_and_2000_Type_I_Fonts_Fantasia_1994.iso/wacky/truetype/y29i.ttf)
+roll.mp3 -> Kaboom! (https://discmaster.textfiles.com/view/915/KABOOM!%20-%20Wild%20and%20Wacky%20Sound%20Software.iso/mac/1,000%20Sounds%20(16-bit)/Casino/Roll%20Dice%20on%20Backgammon%20Board)

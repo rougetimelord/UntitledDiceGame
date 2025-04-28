@@ -20,6 +20,7 @@ function Button:draw()
     love.graphics.setColor(self.bgColor)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
     love.graphics.setColor(self.textColor)
+    love.graphics.setFont(self.font)
     love.graphics.printf(self.text, self.x, self.y + (self.height - self.font:getHeight()) / 2, self.width, "center")
 end
 

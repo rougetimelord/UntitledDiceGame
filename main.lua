@@ -141,11 +141,10 @@ local function drawScore()
 end
 
 function love.draw()
+    drawMainScreen()
+    drawScore()
     if RoundIntro then
         drawRoundIntro()
-    else
-        drawMainScreen()
-        drawScore()
     end
     PauseMenu:draw()
 end

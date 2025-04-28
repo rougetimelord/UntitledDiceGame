@@ -34,6 +34,19 @@ function love.load()
     MainBg = Background("assets/img/bg.png")
 end
 
+function NewRound()
+    -- Round complete
+    Score.score = 0
+    Score.tries = 3
+    Score.required = Score.required + 50 * Round
+    Score.unusedRolls = 0
+    Score.rolls = 5
+
+    Score.money = Score.money + Score.tries * 3 + Score.unusedRolls + math.floor(Score.money / 10)
+    Round = Round + 1
+    RoundIntro = true
+end
+
 function PlayHand()
     Hands.ScoreHand()
     Score.unusedRolls = Score.unusedRolls + Score.rolls
@@ -41,16 +54,7 @@ function PlayHand()
     Score.tries = Score.tries - 1
 
     if Score.score > Score.required then
-        -- Round complete
-        Score.tries = 3
-        Score.score = 0
-        Score.required = Score.required + 50 * Round
-        Score.unusedRolls = 0
-        Score.rolls = 5
-
-        Score.money = Score.money + Score.tries * 3 + Score.unusedRolls + math.floor(Score.money / 10)
-        Round = Round + 1
-        RoundIntro = true
+        NewRound()
     elseif Score.tries <= 0 then
         -- Game over
         Score.money = 0
@@ -135,9 +139,10 @@ end
 local function drawScore()
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setFont(Fonts.IAS24)
-    love.graphics.print("Score: " .. Score.score, 10, 10)
+    love.graphics.print("Score: " .. Score.score .. " / " .. Score.required, 10, 10)
     love.graphics.print("Money: " .. Score.money, 10, 40)
-    love.graphics.print("Rolls: " .. Score.rolls, 10, 70)
+    love.graphics.print("Rerolls: " .. Score.rolls, 10, 70)
+    love.graphics.print("Plays: " .. Score.tries, 10, 100)
 end
 
 function love.draw()

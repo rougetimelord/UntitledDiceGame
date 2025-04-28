@@ -22,6 +22,8 @@ function love.load()
     RoundIntro = false
     RoundIntroWait = 0
 
+    RollSound = love.audio.newSource("assets/roll.mp3", "static")
+
     PauseMenu = PauseMenu(Fonts.IAS36)
     Background = require("background")
     MainBg = Background("assets/img/bg.png")
@@ -59,13 +61,14 @@ function love.update(dt)
         if not Started then
             NewGame()
         end
-        -- Only run game if not paused
-        if love.mouse.isDown(1) then
-            local x, y = love.mouse.getPosition()
-            for index, value in ipairs(Dice) do
+        local found = false
+        for index, value in ipairs(Dice) do
+            value:update(dt)
+            if not found and love.mouse.isDown(1) then
+                local x, y = love.mouse.getPosition()
                 if value:clicked(x, y) then
                     value:roll()
-                    break
+                    found = true
                 end
             end
         end

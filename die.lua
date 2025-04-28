@@ -13,11 +13,17 @@ function Die:new(faces, x, y, width, height)
     self.lastRoll = 0
     self.lastDraw = 0
     self.rolling = false
+    self.shake = 0
     self.displayed = self.up
+    self.oldX = self.x
+    self.oldY = self.y
 end
 
 function Die:roll()
     if(Score.rolls <= 0) then
+        self.oldX = self.x
+        self.oldY = self.y
+        self.shake = 0.5
         return
     end
     Score.rolls = Score.rolls - 1
@@ -37,7 +43,18 @@ function Die:changeFace(i, face)
 end
 
 function Die:addFace(face)
-    table.insert(self.faces, face)    
+    table.insert(self.faces, face)
+end
+
+function Die:update(dt)
+    if self.shake > 0 then
+        self.shake = self.shake - dt
+        local x = love.math.random(-self.shake, self.shake)
+        local y = love.math.random(-self.shake, self.shake)
+        self:move(self.x + x, self.y + y)
+    else
+        self:move(self.oldX, self.oldY)
+    end
 end
 
 function Die:draw()

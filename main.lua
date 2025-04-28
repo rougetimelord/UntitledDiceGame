@@ -20,6 +20,10 @@ function love.load()
 
     Dice = {}
     Score = {}
+    Player = {
+        tries = 3,
+        rolls = 5,
+    }
     Started = false
     Round = nil
     RoundIntro = false
@@ -39,10 +43,10 @@ end
 function NewRound()
     -- Round complete
     Score.score = 0
-    Score.tries = 3
+    Score.tries = Player.tries
     Score.required = Score.required + 50 * Round
     Score.unusedRolls = 0
-    Score.rolls = 5
+    Score.rolls = Player.rolls
 
     Score.money = Score.money + Score.tries * 3 + Score.unusedRolls + math.floor(Score.money / 10)
     Round = Round + 1
@@ -52,7 +56,7 @@ end
 function PlayHand()
     Hands.ScoreHand()
     Score.unusedRolls = Score.unusedRolls + Score.rolls
-    Score.rolls = 5
+    Score.rolls = Player.rolls
     Score.tries = Score.tries - 1
 
     if Score.score > Score.required then
@@ -74,6 +78,10 @@ function NewGame()
         local die = Die(nil, love.graphics.getWidth() / 2 + (i - 3) * 150, love.graphics.getHeight() / 2, 128, 128)
         table.insert(Dice, die)
     end
+    -- Reset player stats
+    Player.tries = 3
+    Player.rolls = 5
+    -- Reset score object
     Score.score = 0
     Score.money = 0
     Score.rolls = 5

@@ -1,6 +1,6 @@
 local Object = require("classic")
 
-Button = Object:extend(Object)
+Button = Object.extend(Object)
 
 function Button:new(x, y, width, height, text, font, callback)
     self.x = x or 0

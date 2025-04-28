@@ -15,6 +15,8 @@ function love.load()
     love.window.setMode(900, 900, {fullscreen = true, resizable = true})
     Object = require("classic")
     Die = require("die")
+    Button = require("button")
+
     Dice = {}
     Score = {}
     Started = false
@@ -27,6 +29,7 @@ function love.load()
 
     PauseMenu = PauseMenu(Fonts.IAS36)
     Background = require("background")
+    PlayButton = Button(love.graphics.getWidth() / 2 - 50, 0.75 * love.graphics.getHeight(), 100, 50, "Play", Fonts.IAS24, ScoreDice)
     MainBg = Background("assets/img/bg.png")
 end
 
@@ -42,6 +45,43 @@ function NewGame()
     Started = true
     Round = 1
     RoundIntro = true
+end
+
+function ScoreDice()
+    local score = 0
+    local mult = 1
+    local occurs = {}
+    for index, value in ipairs(Dice) do
+        if not occurs[value.up.name] then
+            occurs[value.up.name] = 0
+        end
+        occurs[value.up.name] = occurs[value.up.name] + 1
+        score = value.up.scoring(score)
+    end
+    local list = {}
+    for key, value in pairs(occurs) do
+        table.insert(list, value)
+    end
+    table.sort(list, function(a, b) return a > b end)
+    if list[1] == 5 then
+        mult = 10
+        score = score + 50
+    elseif list[1] == 4 then
+        mult = 7
+        score = score + 20
+    elseif list[1] == 3 and list [2] == 2 then
+        mult = 5
+        score = score + 15
+    elseif list[1] == 3 then
+        mult = 3
+        score = score + 10
+    elseif list[1] == 2 and list[2] == 2 then
+        mult = 2
+        score = score + 5
+    elseif list[1] == 2 then
+        mult = 2
+    end
+    Score.score = Score.score + (score * mult)
 end
 
 LastMenu = love.timer.getTime()
@@ -63,6 +103,7 @@ function love.update(dt)
             NewGame()
         end
         local found = false
+        PlayButton:update(dt)
         for index, value in ipairs(Dice) do
             value:update(dt)
             if not found and love.mouse.isDown(1) then
@@ -81,7 +122,8 @@ local function drawMainScreen()
     MainBg:draw()
     for index, value in ipairs(Dice) do
         value:draw()
-    end    
+    end
+    PlayButton:draw()
 end
 
 local function drawRoundIntro()

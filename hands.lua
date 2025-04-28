@@ -1,16 +1,38 @@
+local faces = require "faces"
+
 function IdentifyHand()
     local occurs = {}
+    local clown
     for index, value in ipairs(Dice) do
         if not occurs[value.up.name] then
             occurs[value.up.name] = 0
         end
         occurs[value.up.name] = occurs[value.up.name] + 1
+
+        if value.up.name == "Clown" then
+            clown = index
+        end
     end
+
+    local max = 0
+    local maxName = ""
     local list = {}
-    for key, value in pairs(occurs) do
+    for index, value in pairs(occurs) do
+        if value > max then
+            max = value
+            maxName = index
+        end
         table.insert(list, value)
     end
-    table.sort(list, function(a, b) return a > b end)
+    table.sort(list)
+
+    if clown then
+        list[1] = list[1] + 1
+        Dice[clown].up.scoring = function()
+            return faces[maxName].scoring() + 3
+        end
+    end
+
     if list[1] == 6 then
         return {name= "Six of a Kind", mult=12, score=75}
     end

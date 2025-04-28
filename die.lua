@@ -17,6 +17,12 @@ function Die:new(faces, x, y, width, height)
 end
 
 function Die:roll()
+    if(Score.rolls <= 0) then
+        return
+    end
+    Score.rolls = Score.rolls - 1
+    RollSound:setPitch(love.math.random(80, 120) / 100)
+    RollSound:play()
     self.up = self.faces[love.math.random(1, #self.faces)]
     self.rolling = true
     return self.up

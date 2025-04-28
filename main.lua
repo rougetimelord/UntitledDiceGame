@@ -88,11 +88,20 @@ local function drawRoundIntro()
     love.graphics.print("Round " .. Round, love.graphics.getWidth() / 2 - Fonts.Y29I64:getWidth("Round " .. Round) / 2, love.graphics.getHeight() / 2 - Fonts.Y29I64:getHeight() / 2)
 end
 
+local function drawScore()
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setFont(Fonts.IAS24)
+    love.graphics.print("Score: " .. Score.score, 10, 10)
+    love.graphics.print("Money: " .. Score.money, 10, 40)
+    love.graphics.print("Rolls: " .. Score.rolls, 10, 70)
+end
+
 function love.draw()
     if RoundIntro then
         drawRoundIntro()
     else
         drawMainScreen()
+        drawScore()
     end
     PauseMenu:draw()
 end

@@ -16,6 +16,7 @@ function love.load()
     Object = require("classic")
     Die = require("die")
     Button = require("button")
+    Hands = require("hands")
 
     Dice = {}
     Score = {}
@@ -29,8 +30,36 @@ function love.load()
 
     PauseMenu = PauseMenu(Fonts.IAS36)
     Background = require("background")
-    PlayButton = Button(love.graphics.getWidth() / 2 - 50, 0.75 * love.graphics.getHeight(), 100, 50, "Play", Fonts.IAS24, ScoreDice)
+    PlayButton = Button(love.graphics.getWidth() / 2 - 50, 0.75 * love.graphics.getHeight(), 100, 50, "Play", Fonts.IAS24, PlayHand)
     MainBg = Background("assets/img/bg.png")
+end
+
+function PlayHand()
+    Hands.ScoreHand()
+    Score.unusedRolls = Score.unusedRolls + Score.rolls
+    Score.rolls = 5
+    Score.tries = Score.tries - 1
+
+    if Score.score > Score.required then
+        -- Round complete
+        Score.tries = 3
+        Score.score = 0
+        Score.required = Score.required + 50 * Round
+        Score.unusedRolls = 0
+        Score.rolls = 5
+
+        Score.money = Score.money + Score.tries * 3 + Score.unusedRolls + math.floor(Score.money / 10)
+        Round = Round + 1
+        RoundIntro = true
+    elseif Score.tries <= 0 then
+        -- Game over
+        Score.money = 0
+        NewGame()
+    end
+
+    for index, value in ipairs(Dice) do
+        value:roll()
+    end
 end
 
 function NewGame()
@@ -42,46 +71,12 @@ function NewGame()
     Score.score = 0
     Score.money = 0
     Score.rolls = 5
+    Score.tries = 3
+    Score.required = 100
+    Score.unusedRolls = 0
     Started = true
     Round = 1
     RoundIntro = true
-end
-
-function ScoreDice()
-    local score = 0
-    local mult = 1
-    local occurs = {}
-    for index, value in ipairs(Dice) do
-        if not occurs[value.up.name] then
-            occurs[value.up.name] = 0
-        end
-        occurs[value.up.name] = occurs[value.up.name] + 1
-        score = value.up.scoring(score)
-    end
-    local list = {}
-    for key, value in pairs(occurs) do
-        table.insert(list, value)
-    end
-    table.sort(list, function(a, b) return a > b end)
-    if list[1] == 5 then
-        mult = 10
-        score = score + 50
-    elseif list[1] == 4 then
-        mult = 7
-        score = score + 20
-    elseif list[1] == 3 and list [2] == 2 then
-        mult = 5
-        score = score + 15
-    elseif list[1] == 3 then
-        mult = 3
-        score = score + 10
-    elseif list[1] == 2 and list[2] == 2 then
-        mult = 2
-        score = score + 5
-    elseif list[1] == 2 then
-        mult = 2
-    end
-    Score.score = Score.score + (score * mult)
 end
 
 LastMenu = love.timer.getTime()
@@ -109,6 +104,9 @@ function love.update(dt)
             if not found and love.mouse.isDown(1) then
                 local x, y = love.mouse.getPosition()
                 if value:clicked(x, y) then
+                    if Score.rolls > 0 then
+                        Score.rolls = Score.rolls - 1
+                    end
                     value:roll()
                     found = true
                 end
@@ -127,7 +125,7 @@ local function drawMainScreen()
 end
 
 local function drawRoundIntro()
-    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.setColor(0, 0, 0, 0.5)
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setFont(Fonts.Y29I64)

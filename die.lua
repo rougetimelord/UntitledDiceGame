@@ -27,7 +27,6 @@ function Die:roll()
         FailSound:play()
         return
     end
-    Score.rolls = Score.rolls - 1
     RollSound:setPitch(love.math.random(80, 120) / 100)
     RollSound:play()
     self.up = self.faces[love.math.random(1, #self.faces)]

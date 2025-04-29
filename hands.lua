@@ -24,6 +24,9 @@ function IdentifyHand()
         end
         table.insert(list, value)
     end
+    if maxName == "clown" then
+        maxName = "six"
+    end
     table.sort(list, function (a, b)
         return a > b
     end)

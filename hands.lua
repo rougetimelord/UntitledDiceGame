@@ -63,7 +63,7 @@ function ScoreHand()
     local score = 0
     for _, value in ipairs(Dice) do
         local temp = value.up.scoring(score, hand.mult)
-        score = temp.score
+        score = score + temp.score
         if temp.mult ~= nil then
             hand.mult = hand.mult + temp.mult
         end

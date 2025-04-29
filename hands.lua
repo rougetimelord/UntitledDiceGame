@@ -9,7 +9,7 @@ function IdentifyHand()
         end
         occurs[value.up.name] = occurs[value.up.name] + 1
 
-        if value.up.name == "Clown" then
+        if value.up.name == "clown" then
             clown = index
         end
     end

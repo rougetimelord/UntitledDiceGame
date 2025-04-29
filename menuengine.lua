@@ -157,7 +157,7 @@ function menuengine.new(x, y, font, space)
         oldFont = love.graphics.getFont()
         r,g,b,a = love.graphics.getColor()
 
-        love.graphics.setColor(0.5, 0.5, 0.5, 0.25)
+        love.graphics.setColor(0.5, 0.5, 0.5, 0.5)
         if not self.entries[1].disabled then
             love.graphics.rectangle("fill", self.x - 20, self.y - 20, 200, #self.entries * self.space + 40)
         end

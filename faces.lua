@@ -5,7 +5,7 @@ local faces = {
     four = {name = "4", image = love.graphics.newImage("assets/img/4.png"), scoring = function (score) return score + 4 end, description = "Four", cost = 1},
     five = {name = "5", image = love.graphics.newImage("assets/img/5.png"), scoring = function (score) return score + 5 end, description = "Five", cost = 1},
     six = {name = "6", image = love.graphics.newImage("assets/img/6.png"), scoring = function (score) return score + 6 end, description = "Six", cost = 1},
-    clown = {name = "Clown", image = love.graphics.newImage("assets/img/clown.png"), scoring = function (score) return score end, description = "Becomes the most common face and grants a small bonus", cost = 3},
+    clown = {name = "Clown", image = love.graphics.newImage("assets/img/clown.png"), scoring = function (score) return score end, description = "Becomes the most common face", cost = 3},
 }
 
 return faces

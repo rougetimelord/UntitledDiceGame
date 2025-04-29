@@ -24,7 +24,9 @@ function IdentifyHand()
         end
         table.insert(list, value)
     end
-    table.sort(list)
+    table.sort(list, function (a, b)
+        return a > b
+    end)
 
     if clown then
         list[1] = list[1] + 1

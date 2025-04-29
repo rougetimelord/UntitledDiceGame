@@ -12,11 +12,12 @@ function love.load()
     love.graphics.draw(splash, love.graphics.getWidth() / 2 - splash:getWidth() / 2, love.graphics.getHeight() / 2 - splash:getHeight() / 2)
     love.graphics.present()
 
-    love.window.setMode(900, 900, {fullscreen = true, resizable = true})
+    love.window.setMode(900, 900, {fullscreen = true, vsync = true})
     Object = require("classic")
     Die = require("die")
     Button = require("button")
     Hands = require("hands")
+    Shop = require("shop")
 
     Dice = {}
     Score = {}
@@ -30,6 +31,8 @@ function love.load()
     RoundIntroWait = 0
     GameOver = false
     GameOverWait = 0
+    InShop = false
+    CurrentShop = nil
 
     RollSound = love.audio.newSource("assets/roll.mp3", "static")
     FailSound = love.audio.newSource("assets/fail.mp3", "static")
@@ -50,7 +53,8 @@ function NewRound()
 
     Score.money = Score.money + Score.tries * 3 + Score.unusedRolls + math.floor(Score.money / 10)
     Round = Round + 1
-    RoundIntro = true
+    InShop = true
+    CurrentShop = Shop()
 end
 
 function PlayHand()
@@ -67,7 +71,7 @@ function PlayHand()
         GameOver = true
     end
 
-    for index, value in ipairs(Dice) do
+    for _, value in ipairs(Dice) do
         value:roll()
     end
 end
@@ -111,7 +115,7 @@ function love.update(dt)
         if not Started then
             NewGame()
         end
-        for index, value in ipairs(Dice) do
+        for _, value in ipairs(Dice) do
             value:update(dt)
         end
     end
@@ -119,8 +123,7 @@ function love.update(dt)
 end
 
 local function drawMainScreen()
-    MainBg:draw()
-    for index, value in ipairs(Dice) do
+    for _, value in ipairs(Dice) do
         value:draw()
     end
     PlayButton:draw()
@@ -160,11 +163,16 @@ function love.draw()
         love.graphics.print("Game Over", love.graphics.getWidth() / 2 - Fonts.IAS64:getWidth("Game Over") / 2, love.graphics.getHeight() / 2 - Fonts.IAS64:getHeight() / 2)
         love.graphics.print("Click to restart", love.graphics.getWidth() / 2 - Fonts.IAS64:getWidth("Click to restart") / 2, love.graphics.getHeight() / 2 + Fonts.IAS64:getHeight() / 2)
     else
-        drawMainScreen()
-        drawHandPreview()
-        drawScore()
-        if RoundIntro then
-            drawRoundIntro()
+        MainBg:draw()
+        if InShop then
+            CurrentShop:draw()
+        else
+            drawMainScreen()
+            drawHandPreview()
+            drawScore()
+            if RoundIntro then
+                drawRoundIntro()
+            end
         end
     end
     PauseMenu:draw()
@@ -180,6 +188,10 @@ function love.mousereleased(x, y, button, istouch)
             NewGame()
             GameOver = false
         else
+            if InShop then
+                CurrentShop:check(x, y)
+                return
+            end
             if RoundIntro then
                 RoundIntro = false
                 RoundIntroWait = 0

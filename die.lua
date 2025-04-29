@@ -34,14 +34,6 @@ function Die:roll()
     return self.up
 end
 
-function Die:changeFace(i, face)
-    if i < 1 or i > #self.faces then
-        error("Invalid face index")
-        return
-    end
-    self.faces[i] = face
-end
-
 function Die:addFace(face)
     table.insert(self.faces, face)
 end
@@ -63,7 +55,7 @@ function Die:draw()
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.rectangle("fill", self.x - self.width / 2, self.y - self.height / 2, self.width, self.height)
     if self.rolling and math.abs(self.lastRoll - love.timer.getTime()) < 0.5 then
-        if math.abs(self.lastDraw - love.timer.getTime()) >= 0.1 then
+        if math.abs(self.lastDraw - love.timer.getTime()) >= 0.05 then
             self.displayed = self.faces[love.math.random(#self.faces)]
             self.lastDraw = love.timer.getTime()
         end

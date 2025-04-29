@@ -6,7 +6,7 @@ local faces = {
     five = {name = "five", image = love.graphics.newImage("assets/img/5.png"), scoring = function (score) return {score=score + 5} end, description = "Five", cost = 3},
     six = {name = "six", image = love.graphics.newImage("assets/img/6.png"), scoring = function (score) return {score=score + 6} end, description = "Six", cost = 4},
     clown = {name = "clown", image = love.graphics.newImage("assets/img/clown.png"), scoring = function (score) return {score=score} end, description = "Becomes the most common face", cost = 5},
-    eye = {name = "eye", image = love.graphics.newImage("assets/img/eye-L.png"), scoring = function (score, mult) return {score=score + 6, mult = mult + 2} end, description = "+2 mult", cost = 8},
+    eye = {name = "eye", image = love.graphics.newImage("assets/img/eye-L.png"), scoring = function (score, mult) return {score=score, mult = mult + 2} end, description = "+0 score... +2 mult", cost = 8},
 }
 
 return faces

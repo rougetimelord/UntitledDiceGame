@@ -61,8 +61,12 @@ end
 function ScoreHand()
     local hand = IdentifyHand()
     local score = 0
-    for index, value in ipairs(Dice) do
-        score = value.up.scoring(score)
+    for _, value in ipairs(Dice) do
+        local temp = value.up.scoring(score, hand.mult)
+        score = temp.score
+        if temp.mult ~= nil then
+            hand.mult = hand.mult + temp.mult
+        end
     end
     Score.score = Score.score + ((score + hand.score) * hand.mult)
 end

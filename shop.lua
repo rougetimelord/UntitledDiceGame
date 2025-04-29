@@ -57,9 +57,9 @@ end
 
 function Shop:new()
     self.faces = {Item(love.graphics.getWidth() / 2 - 200, love.graphics.getHeight() / 2, getRandomFace()), Item(love.graphics.getWidth() / 2 + 200, love.graphics.getHeight() / 2, getRandomFace())}
-    self.buyPlays = Button(love.graphics.getWidth() / 2 - 100, love.graphics.getHeight() - 200, 200, 64, "Buy More Plays: $4", Fonts.IAS24, function()
-        if Score.money >= 4 then
-            Score.money = Score.money - 4
+    self.buyPlays = Button(love.graphics.getWidth() / 2 - 100, love.graphics.getHeight() - 200, 200, 64, "Buy More Plays: $10", Fonts.IAS24, function()
+        if Score.money >= 10 then
+            Score.money = Score.money - 10
             Player.tries = Player.tries + 1
             Score.tries = Player.tries
             self.buyPlays.callback = function()
